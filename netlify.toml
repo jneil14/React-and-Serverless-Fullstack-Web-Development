@@ -4,4 +4,4 @@
 
   command = "CI= npm run build"
 
-  
+  functions = "/functions"
