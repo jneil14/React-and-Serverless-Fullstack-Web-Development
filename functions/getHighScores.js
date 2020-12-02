@@ -6,12 +6,14 @@ Airtable.configure({
   apiKey: process.env.AIRTABLE_API_KEY
 });
 
-const base = require("airtable").base(process.env.AIRTABLE_BASE);
+const base = Airtable.base(process.env.AIRTABLE_BASE);
 const table = base.table(process.env.AIRTABLE_TABLE);
 
 exports.handler = async event => {
   try {
-    const records = await table.select().firstPage();
+    const records = await table.select( {
+      sort: [{field: "score", direction: "desc"}],
+      filterByFormula: `AND(name != "", score > 0)`} ).firstPage();
     const formattedRecords = records.map(record => ({
       id: record.id,
       fields: record.fields
@@ -21,11 +23,11 @@ exports.handler = async event => {
       statusCode: 200,
       body: JSON.stringify(formattedRecords)
     };
-  } catch {
+  } catch (err) {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        msg: "Failed to query from Airtable"
+        err: "Failed to query from Airtable."
       })
     };
   }
