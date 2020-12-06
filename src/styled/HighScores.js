@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const ScoresList = styled.ol`
-    /*   */
-    /* list-style: none; */
+    padding-left: left;
+    list-style: none;
 `
 
 export const ScoreLI = styled.li`
