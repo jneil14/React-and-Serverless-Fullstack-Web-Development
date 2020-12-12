@@ -1,14 +1,17 @@
 const { table, getHighScores } = require("./utils/airtable");
-const { getAccessTokenFromHeader } = require("./utils/auth");
+const { getAccessTokenFromHeader, validateAccessToken } = require("./utils/auth");
 
 
 exports.handler = async event => {
   const token = getAccessTokenFromHeader(event.headers);
+  console.log(token);
+  const user = await validateAccessToken(token);
+  console.log(user);
   
-  if(!token) {
+  if(!user) {
     return {
       statusCode: 401,
-      body: JSON.stringify({err: "User is not logged in."})
+      body: JSON.stringify({err: "Unauthorized login."})
     }
   }
 
@@ -21,7 +24,8 @@ exports.handler = async event => {
     };
   }
 
-  const { score, name } = JSON.parse(event.body);
+  const { score } = JSON.parse(event.body);
+  const name = user['https://learnbuildtype/username'];
 
   if (typeof score === "undefined" || !name) {
     return {
