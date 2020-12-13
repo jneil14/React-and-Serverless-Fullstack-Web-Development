@@ -12,7 +12,8 @@ import useTheme from "../hooks/UseTheme";
 
 export default function Navbar({ toggleTheme }) {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  
+  const localStorageTheme = window.localStorage.getItem("theme");
+
   return (
     <StyledNavbar>
       <StyledNavBrand>
@@ -37,7 +38,9 @@ export default function Navbar({ toggleTheme }) {
             <button onClick={logout}>Logout</button>
           </li>
         )}
-        <button onClick={toggleTheme}>Toggle Theme</button>
+        <button onClick={toggleTheme}>
+          {localStorageTheme === "light" ? "DARK" : "LIGHT"}
+        </button>
       </StyledNavItems>
     </StyledNavbar>
   );
