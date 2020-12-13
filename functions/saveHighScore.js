@@ -4,9 +4,8 @@ const { getAccessTokenFromHeader, validateAccessToken } = require("./utils/auth"
 
 exports.handler = async event => {
   const token = getAccessTokenFromHeader(event.headers);
-  console.log(token);
+  
   const user = await validateAccessToken(token);
-  console.log(user);
   
   if(!user) {
     return {

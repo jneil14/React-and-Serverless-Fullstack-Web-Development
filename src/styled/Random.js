@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Accent = styled.span`
-  color: #e16365;
-`;
+         color: var(--accent-color);
+       `;
 
 export const StyledTitle = styled.h1 `
     margin-top: 3rem;
