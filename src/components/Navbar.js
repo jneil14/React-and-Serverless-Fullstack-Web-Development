@@ -4,8 +4,10 @@ import {
   StyledNavbar,
   StyledNavBrand,
   StyledNavItems,
-  StyledLink
+  StyledLink,
+  StyledButtonLink
 } from "../styled/Navbar";
+import { StyledButton } from "../styled/Buttons";
 import { Accent } from "../styled/Random";
 import { useAuth0 } from "../auth";
 import useTheme from "../hooks/UseTheme";
@@ -30,17 +32,20 @@ export default function Navbar({ toggleTheme }) {
         </li>
         {!isAuthenticated && (
           <li>
-            <button onClick={loginWithRedirect}>Login</button>
+            <StyledButtonLink onClick={loginWithRedirect}>
+              Login
+            </StyledButtonLink>
           </li>
         )}
         {isAuthenticated && (
           <li>
-            <button onClick={logout}>Logout</button>
+            <StyledButtonLink onClick={logout}>Logout</StyledButtonLink>
           </li>
         )}
-        <button onClick={toggleTheme}>
-          {localStorageTheme === "light" ? "DARK" : "LIGHT"}
-        </button>
+        <StyledButton onClick={toggleTheme}>
+          {localStorageTheme === "light" ? "Dark" : "Light"} Theme
+        </StyledButton>
+        {/* <StyledButton onClick={toggleTheme}>Change Theme</StyledButton> */}
       </StyledNavItems>
     </StyledNavbar>
   );
